@@ -12,12 +12,22 @@ curl -s -u <user>:<pass> -X POST http://<ip>:<port>/json-rpc -H 'Content-Type: a
 
 | Method | Description |
 |--------|-------------|
-| search | Find block or transaction by unique ID or hash |
-| create_address | Generate new address and private key |
-| create_transaction | Request new transaction creation |
-| send_transaction | Send already generated transaction |
+| [create_address](#Create-address) | Generate new address and private key |
+| [create_transaction](#Transaction-Create) | Request new transaction creation |
+| [send_transaction](#Transaction-Send) | Send already generated transaction |
+| [get_transaction](#Get-transaction) | Get transaction by id |
+| [get_block](#Get-block) | Get block by index or hash |
+| [get_block_last](#Get-last-block) | Get last block in the blockchain |
+| [get_balance](#Get-balance) | Get current balance of an address |
+| [get_unspents](#Get-unspents) | Get unspent inputs of an address |
+| [get_statistic](#Get-statistic) | Get blockchain statisctic |
 
-## 1. Address Create
+## Create address
+
+#### Method name
+
+create_address
+
 #### About
 
 Generates and returns new random key pair.
@@ -61,7 +71,12 @@ curl -s -u user:pass -X POST http://127.0.0.1:3001/json-rpc -H 'Content-Type: ap
 }
 ````
 
-## 2. Transaction Create
+## Transaction Create
+
+#### Method name
+
+create_transaction
+
 #### About
 
 Generates new transaction using sent fields and adds it to the transaction pool.
@@ -136,7 +151,12 @@ curl -s -X POST http://127.0.0.1:3001/json-rpc -H 'Content-Type: application/jso
 }
 ```
 
-## 3. Transaction Send
+## Transaction Send
+
+#### Method name
+
+send_transaction
+
 #### About
 
 Adds generated transaction to the transactions pool
@@ -205,7 +225,12 @@ curl -s -X POST http://127.0.0.1:3001/json-rpc -H 'Content-Type: application/jso
 }
 ```
 
-## 4. Get transaction
+## Get transaction
+
+#### Method name
+
+get_transaction
+
 #### About
 
 Find transaction by id
@@ -274,7 +299,12 @@ curl -s -X POST http://127.0.0.1:3001/json-rpc -H 'Content-Type: application/jso
 }
 ```
 
-## 5. Get block
+## Get block
+
+#### Method name
+
+get_block
+
 #### About
 
 Find block by index or hash
@@ -344,7 +374,12 @@ curl -s -X POST http://127.0.0.1:3001/json-rpc -H 'Content-Type: application/jso
 }
 ```
 
-## 6. Get last block
+## Get last block
+
+#### Method name
+
+get_block_last
+
 #### About
 
 Get last block
@@ -411,7 +446,12 @@ curl -s -X POST http://127.0.0.1:3001/json-rpc -H 'Content-Type: application/jso
 }
 ```
 
-## 7. Get balance
+## Get balance
+
+#### Method name
+
+get_balance
+
 #### About
 
 Get balance of requested address
@@ -454,7 +494,12 @@ curl -s -X POST http://127.0.0.1:3001/json-rpc -H 'Content-Type: application/jso
     "id": 0
 }
 ```
-## 8. Get unspents
+## Get unspents
+
+#### Method name
+
+get_unspents
+
 #### About
 
 Get inspents of requested address
@@ -505,7 +550,12 @@ curl -s -X POST http://127.0.0.1:3001/json-rpc -H 'Content-Type: application/jso
 }
 ```
 
-## 9. Get statistic
+## Get statistic
+
+#### Method name
+
+get_statistic
+
 #### About
 
 Get info about last mined block, total amount of mined transactions and total amount of money transfered via blockchain network
