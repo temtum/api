@@ -1,8 +1,23 @@
-# REST API
+# Introduction
 
-## Endpoints
+Temtum Wallet REST API
 
-# 1. Generate address
+# Methods
+
+| Method | Description |
+|--------|-------------|
+| [create_address](#Create-address) | Generate new address and private key |
+| [create_transaction](#Transaction-Create) | Request new transaction creation |
+| [send_transaction](#Transaction-Send) | Send already generated transaction |
+| [get_transaction](#Get-transaction) | Get transaction by id |
+| [get_block_by_hash](#Get-block-by-hash) | Get block by hash |
+| [get_block_by_index](#Get-block-by-index) | Get block by index |
+| [get_block_last](#Get-last-block) | Get last block in the blockchain |
+| [get_balance](#Get-balance) | Get current balance of an address |
+| [get_unspents](#Get-unspents) | Get unspent inputs of an address |
+| [get_statistic](#Get-statistic) | Get blockchain statisctic |
+
+## Create address
 
 #### POST http://127.0.0.1:3001/address/create
 
@@ -40,7 +55,7 @@ curl -s -u user:pass -X POST http://127.0.0.1:3001/address/create -H 'Content-Ty
 }
 ````
 
-## 2. Transaction Create
+## Transaction Create
 
 #### POST http://127.0.0.1:3001/transaction/create
 
@@ -110,7 +125,7 @@ curl -s -u user:pass -X POST http://127.0.0.1:3001/transaction/create -H 'Conten
 }
 ```
 
-## 3. Transaction Send
+## Transaction Send
 
 #### POST http://127.0.0.1:3001/transaction/send
 
@@ -175,7 +190,7 @@ curl -s -u user:pass -X POST http://127.0.0.1:3001/transaction/send -H 'Content-
 }
 ```
 
-## 4. Get transaction
+## Get transaction
 
 #### GET http://127.0.0.1:3001/transaction/:id
 
@@ -234,7 +249,7 @@ curl -s -X GET http://127.0.0.1:3001/transaction/93f3e2f32f009c8a535d85e4e4e2e06
 }
 ```
 
-## 5. Get block by hash
+## Get block by hash
 
 #### GET http://127.0.0.1:3001/block/:hash
 
@@ -295,7 +310,7 @@ curl -s -X GET http://127.0.0.1:3001/block/4a02fa6c7f243af4bd07de58c2f80b91437ea
 }
 ```
 
-## 6. Get block by index
+## Get block by index
 
 #### GET http://127.0.0.1:3001/block/:index
 
@@ -356,7 +371,7 @@ curl -s -X GET http://127.0.0.1:3001/block/2 -H 'Content-Type: application/json-
 }
 ```
 
-## 7. Get last block
+## Get last block
 
 #### GET http://127.0.0.1/address/:address/balance
 
@@ -415,7 +430,7 @@ curl -s -X GET http://127.0.0.1:3001/block/last -H 'Content-Type: application/js
 }
 ```
 
-## 8. Get balance
+## Get balance
 
 #### GET http://127.0.0.1:3001/address/:address/balance
 
@@ -453,7 +468,7 @@ curl -s -X GET http://127.0.0.1:3001/address/0231272fba0fb2a54be85ff7b45hy7712d3
 }
 ```
 
-## 9. Get unspents
+## Get unspents
 
 #### GET http://127.0.0.1:3001/address/:address/unspent
 
@@ -498,7 +513,7 @@ curl -s -X GET http://127.0.0.1:3001/address/0231272fba0fb2a54be85ff7b45hy7712d3
 }
 ```
 
-## 10. Get statistic
+## Get statistic
 
 #### GET http://127.0.0.1:3001/statistic
 
