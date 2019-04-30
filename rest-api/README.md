@@ -276,7 +276,7 @@ Find block by hash
 #### Input:
 
 ```
-curl -s -X GET http://127.0.0.1:3001/block/4a02fa6c7f243af4bd07de58c2f80b91437ea07f9ac90b03c68f24e9ba93025a -H 'Content-Type: application/json-rpc'
+curl -s -X GET http://127.0.0.1:3001/block/4a02fa6c7f243af4bd07de58c2f80b91437ea07f9ac90b03c68f24e9ba93025a -H 'Content-Type: application/json'
 ```
 
 #### Output:
@@ -337,7 +337,7 @@ Find block by index
 #### Input:
 
 ```
-curl -s -X GET http://127.0.0.1:3001/block/2 -H 'Content-Type: application/json-rpc'
+curl -s -X GET http://127.0.0.1:3001/block/2 -H 'Content-Type: application/json'
 ```
 
 #### Output:
@@ -540,7 +540,7 @@ Get statistic
 #### Input:
 
 ```
-curl -s -X GET http://127.0.0.1:3001/statistic -H 'Content-Type: application/json-rpc'
+curl -s -X GET http://127.0.0.1:3001/statistic -H 'Content-Type: application/json'
 ```
 
 #### Output:
