@@ -8,7 +8,6 @@ Temtum Wallet REST API
 |--------|-------------|
 | [create_address](#Create-address) | Generate new address and private key |
 | [send_transaction](#Transaction-Send) | Send already generated transaction |
-| [get_transaction_list](#Get-transaction-list) | Get transaction list |
 | [get_transaction](#Get-transaction) | Get transaction by id |
 | [get_blocks](#Get-blocks) | Get blocks |
 | [get_blocks_with_offset](#Get-blocks-with-offset) | Get blocks with offset |
@@ -18,7 +17,6 @@ Temtum Wallet REST API
 | [get_last_block_index](#Get-last-block-index) | Get last block index |
 | [get_balance](#Get-balance) | Get current balance of an address |
 | [get_unspents](#Get-unspents) | Get unspent inputs of an address |
-| [get_statistic](#Get-statistic) | Get blockchain statisctic |
 
 ## Create address
 
@@ -121,70 +119,6 @@ curl -s -X POST http://localhost/transaction/send -H 'Content-Type: application/
        "id": "d0c147b68b2acaf6d7ddcf53825611c7b89a5960465a2db5a801e88e28d56c1a"
    }
 }
-```
-
-## Get transaction list
-
-#### GET http://localhost/tx/list
-
-#### About
-
-Get transaction list
-
-#### Input (search params)
-
-| Filed | Type | Mandatory | Description |
-|-------|------|-----------|-------------|
-| senderAddress | String | No | Sender address |
-| recipientAddress | String | No | Recipient address |
-| minAmount | Number | No | Min transaction amount |
-| maxAmount | Number | No | Max transaction amount |
-| minTimestamp | Number | No | Lower transaction creation time limitation |
-| maxTimestamp | Number | No | Upper transaction creation time limitation |
-
-#### Output
-
-| Filed | Type | Description |
-|-------|------|-------------|
-| txList | Array | Transaction array |
-| lastBlockIndex | Number | Last scanned block |
-| lastTxIndex | Number | Last scanned transaction of block #lastBlockIndex |
-
-#### Example
-
-Get transaction list
-
-#### Input
-
-```
-curl -s -X GET http://localhost/tx/list?senderAddress=0253bef002ac9ed66cc32ce464945b9ff849689bbbabff514e6e5bbf040ba59677&recipientAddress=02d0e5855150b64eef857a570d472cea0dd7ab2db01578649d0db1deb6f698f05b&minAmount=100&maxAmount=10000&minTimestamp=1485743120&maxTimestamp=1685743120 -H 'Content-Type: application/json'
-```
-
-#### Output
-
-```
-"txList": [
-    {
-        "type": "regular",
-        "txIns": [
-            {
-                "txOutIndex": 7024,
-                ...
-            }
-        ],
-        "txOuts": [
-            {
-                "amount": 0,
-                "address": "02d0e5855150b64eef857a570d472cea0dd7ab2db01578649d0db1deb6f698f05b"
-                ...
-            }
-        ],
-        "timestamp": 1530941569,
-        "id": "8c5db06e8ea6090a4b8c4c053b667d5d5897b72b44cb515c7ccb359fc33d0a38"
-    }
-],
-"lastBlockIndex": 1000,
-"lastTxIndex": 1
 ```
 
 ## Get transaction
@@ -667,45 +601,5 @@ curl -s -X GET http://localhost/address/0231272fba0fb2a54be85ff7b45hy7712d321343
         "address": "0231272fba0fb2a54be85ff7b45hy7712d32134338dbbb10e4e3b9272c2a678238"
       }
     ]
-}
-```
-
-## Get statistic
-
-#### GET http://localhost/statistic
-
-#### About
-
-Get info about last mined block, total amount of mined transactions and total amount of money transfered via blockchain network
-
-#### Input (params)
-
-Empty
-
-#### Output
-
-| Filed | Type | Description |
-|-------|------|-------------|
-| lastBlockIndex | Int | Index of last mined block |
-| transactionCount | Int | Total amount of mined transactions |
-| totalMoneyTransferred | Int | Total amount of money transfered |
-
-#### Example
-
-Get statistic
-
-#### Input:
-
-```
-curl -s -X GET http://localhost/statistic -H 'Content-Type: application/json'
-```
-
-#### Output:
-
-```
-{
-    "lastBlockIndex": 4356,
-    "transactionCount": 1004,
-    "totalMoneyTransferred": 1300020000
 }
 ```

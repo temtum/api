@@ -49,7 +49,7 @@ Generate new key pair
 #### Input
 
 ```
-curl -s -u user:pass -X POST http://127.0.0.1:3001/json-rpc -H 'Content-Type: application/json-rpc' -d '{
+curl -s -u user:pass -X POST http://localhost/json-rpc -H 'Content-Type: application/json-rpc' -d '{
   "jsonrpc": "2.0",
   "id": "0",
   "method": "create_address",
@@ -99,7 +99,7 @@ Add generated transactin to transactions pool
 #### Input
 
 ```
-curl -s -X POST http://127.0.0.1:3001/json-rpc -H 'Content-Type: application/json-rpc' -d '{
+curl -s -X POST http://localhost/json-rpc -H 'Content-Type: application/json-rpc' -d '{
   "jsonrpc": "2.0",
   "id": "0",
   "method": "send_transaction",
@@ -173,7 +173,7 @@ Find transaction
 #### Input
 
 ```
-curl -s -X POST http://127.0.0.1:3001/json-rpc -H 'Content-Type: application/json-rpc' -d '{
+curl -s -X POST http://localhost/json-rpc -H 'Content-Type: application/json-rpc' -d '{
   "jsonrpc": "2.0",
   "id": "0",
   "method": "get_transaction",
@@ -248,7 +248,7 @@ Find block by index
 #### Input:
 
 ```
-curl -s -X POST http://127.0.0.1:3001/json-rpc -H 'Content-Type: application/json-rpc' -d '{
+curl -s -X POST http://localhost/json-rpc -H 'Content-Type: application/json-rpc' -d '{
   "jsonrpc": "2.0",
   "id": "0",
   "method": "get_block",
@@ -320,7 +320,7 @@ Get last block
 #### Input:
 
 ```
-curl -s -X POST http://127.0.0.1:3001/json-rpc -H 'Content-Type: application/json-rpc' -d '{
+curl -s -X POST http://localhost/json-rpc -H 'Content-Type: application/json-rpc' -d '{
   "jsonrpc": "2.0",
   "id": "0",
   "method": "get_block_last",
@@ -394,7 +394,7 @@ Get balance of requested wallet
 #### Input:
 
 ```
-curl -s -X POST http://127.0.0.1:3001/json-rpc -H 'Content-Type: application/json-rpc' -d '{
+curl -s -X POST http://localhost/json-rpc -H 'Content-Type: application/json-rpc' -d '{
   "jsonrpc": "2.0",
   "id": "0",
   "method": "get_balance",
@@ -442,7 +442,7 @@ Get unspent txOuts of requested address
 #### Input:
 
 ```
-curl -s -X POST http://127.0.0.1:3001/json-rpc -H 'Content-Type: application/json-rpc' -d '{
+curl -s -X POST http://localhost/json-rpc -H 'Content-Type: application/json-rpc' -d '{
   "jsonrpc": "2.0",
   "id": "0",
   "method": "get_unspents",
@@ -498,7 +498,7 @@ Get statistic
 #### Input:
 
 ```
-curl -s -X POST http://127.0.0.1:3001/json-rpc -H 'Content-Type: application/json-rpc' -d '{
+curl -s -X POST http://localhost/json-rpc -H 'Content-Type: application/json-rpc' -d '{
   "jsonrpc": "2.0",
   "id": "0",
   "method": "get_statistic",
