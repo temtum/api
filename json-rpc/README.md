@@ -12,7 +12,6 @@ curl -s -u <user>:<pass> -X POST http://<ip>:<port>/json-rpc -H 'Content-Type: a
 
 | Method | Description |
 |--------|-------------|
-| [create_address](#Create-address) | Generate new address and private key |
 | [send_transaction](#Transaction-Send) | Send already generated transaction |
 | [get_transaction](#Get-transaction) | Get transaction by id |
 | [get_block](#Get-block) | Get block by index or hash |
@@ -20,55 +19,6 @@ curl -s -u <user>:<pass> -X POST http://<ip>:<port>/json-rpc -H 'Content-Type: a
 | [get_balance](#Get-balance) | Get current balance of an address |
 | [get_unspents](#Get-unspents) | Get unspent inputs of an address |
 | [get_statistic](#Get-statistic) | Get blockchain statisctic |
-
-## Create address
-
-#### Method name
-
-create_address
-
-#### About
-
-Generates and returns new random key pair.
-
-#### Input (params)
-
-Empty
-
-#### Output
-
-| Filed | Type | Description |
-|-------|------|-------------|
-| address | string | Public key |
-| privateKey | string | Private key |
-
-#### Example
-
-Generate new key pair
-
-#### Input
-
-```
-curl -s -u user:pass -X POST http://localhost/json-rpc -H 'Content-Type: application/json-rpc' -d '{
-  "jsonrpc": "2.0",
-  "id": "0",
-  "method": "create_address",
-  "params": {}
-}'
-```
-
-#### Output
-
-````
-{
-    "jsonrpc": "2.0",
-    "result": {
-        "privateKey": "73964b743c1ad587e0e116962e8121ff73f9409fa8e9a30b1b389f8eaf97ff4e",
-        "address": "02a757bf4164312d2fc95a54ff9f6b54bc8947a97b7ed744d0777f9075ed5f4c2f"
-    },
-    "id": 0
-}
-````
 
 ## Transaction Send
 
