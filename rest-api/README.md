@@ -6,7 +6,6 @@ Temtum Wallet REST API
 
 | Method | Description |
 |--------|-------------|
-| [create_address](#Create-address) | Generate new address and private key |
 | [send_transaction](#Transaction-Send) | Send already generated transaction |
 | [get_transaction](#Get-transaction) | Get transaction by id |
 | [get_blocks](#Get-blocks) | Get blocks |
@@ -17,44 +16,6 @@ Temtum Wallet REST API
 | [get_last_block_index](#Get-last-block-index) | Get last block index |
 | [get_balance](#Get-balance) | Get current balance of an address |
 | [get_unspents](#Get-unspents) | Get unspent inputs of an address |
-
-## Create address
-
-#### POST http://localhost/address/create
-
-#### About
-
-Generates and returns new random key pair.
-
-#### Input (params)
-
-Empty
-
-#### Output
-
-| Filed | Type | Description |
-|-------|------|-------------|
-| address | string | Public key |
-| privateKey | string | Private key |
-
-#### Example
-
-Generate new key pair
-
-#### Input
-
-```
-curl -s -X POST http://localhost/address/create -H 'Content-Type: application/json' -d '{ }'
-```
-
-#### Output
-
-````
-{
-  "privateKey": "73964b743c1ad587e0e116962e8121ff73f9409fa8e9a30b1b389f8eaf97ff4e",
-  "address": "02a757bf4164312d2fc95a54ff9f6b54bc8947a97b7ed744d0777f9075ed5f4c2f"
-}
-````
 
 ## Transaction Send
 
