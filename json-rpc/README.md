@@ -13,7 +13,6 @@ curl -s -u <user>:<pass> -X POST http://<ip>:<port>/json-rpc -H 'Content-Type: a
 | Method | Description |
 |--------|-------------|
 | [create_address](#Create-address) | Generate new address and private key |
-| [create_transaction](#Transaction-Create) | Request new transaction creation |
 | [send_transaction](#Transaction-Send) | Send already generated transaction |
 | [get_transaction](#Get-transaction) | Get transaction by id |
 | [get_block](#Get-block) | Get block by index or hash |
@@ -70,86 +69,6 @@ curl -s -u user:pass -X POST http://127.0.0.1:3001/json-rpc -H 'Content-Type: ap
     "id": 0
 }
 ````
-
-## Transaction Create
-
-#### Method name
-
-create_transaction
-
-#### About
-
-Generates new transaction using sent fields and adds it to the transaction pool.
-
-#### Input (params)
-
-| Filed | Type | Mandatory | Description |
-|-------|------|-----------|-------------|
-| from | string | Yes | Sender's address |
-| to | string | Yes | Recipient's address |
-| privateKey | string | Yes | Sender's private key |
-| amount | int | Yes | Amount of coins to send. Must be equal or greater than 1 |
-
-#### Output
-
-| Filed | Type | Description |
-|-------|------|-------------|
-| transaction | Transaction | Generated transaction object |
-
-#### Example
-
-Create transaction
-
-#### Input
-
-```
-curl -s -X POST http://127.0.0.1:3001/json-rpc -H 'Content-Type: application/json-rpc' -d '{
-  "jsonrpc": "2.0",
-  "id": "0",
-  "method": "create_transaction",
-  "params": {
-    "from": "02bd3a78c2dddd22650c668e2e18bfbc1743b681f5722b34f012c9b7cd38d3bc9f",
-    "to": "034f3115e8f2aa97071951313ed582f64a06bd8bdb23b412507a1ab6c138500de9",
-    "privateKey": "601e2e4552bac2109237818808ec4696e2da95744b5badee75a3f54cb78a8900",
-    "amount": 1
-  }
-}'
-```
-
-#### Output
-
-```
-{
-    "jsonrpc": "2.0",
-    "result": {
-        "transaction": {
-            "type": "regular",
-            "txIns": [
-                {
-                    "txOutIndex": 1,
-                    "txOutId": "db5d5e4d488a7a6c23a88a3bc64993197649a5248560f123d75f6271c8b6c30e",
-                    "amount": 99576613,
-                    "address": "02bd3a78c2dddd22650c668e2e18bfbc1743b681f5722b34f012c9b7cd38d3bc9f",
-                    "signature": "d58a31cce3184a26511bfc92dbde6f884983bb851705fc0036eb80a277a8ee09434a08bd20333952e946ae2f1f3b77b056fabfe91af99ba94c70e4e1683ea13c"
-                }
-            ],
-            "txOuts": [
-                {
-                    "address": "034f3115e8f2aa97071951313ed582f64a06bd8bdb23b412507a1ab6c138500de9",
-                    "amount": 1
-                },
-                {
-                    "address": "02bd3a78c2dddd22650c668e2e18bfbc1743b681f5722b34f012c9b7cd38d3bc9f",
-                    "amount": 99576612
-                }
-            ],
-            "timestamp": 1554724349,
-            "id": "d0c147b68b2acaf6d7ddcf53825611c7b89a5960465a2db5a801e88e28d56c1a"
-        }
-    },
-    "id": 0
-}
-```
 
 ## Transaction Send
 

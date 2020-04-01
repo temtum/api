@@ -7,19 +7,22 @@ Temtum Wallet REST API
 | Method | Description |
 |--------|-------------|
 | [create_address](#Create-address) | Generate new address and private key |
-| [create_transaction](#Transaction-Create) | Request new transaction creation |
 | [send_transaction](#Transaction-Send) | Send already generated transaction |
+| [get_transaction_list](#Get-transaction-list) | Get transaction list |
 | [get_transaction](#Get-transaction) | Get transaction by id |
+| [get_blocks](#Get-blocks) | Get blocks |
+| [get_blocks_with_offset](#Get-blocks-with-offset) | Get blocks with offset |
 | [get_block_by_hash](#Get-block-by-hash) | Get block by hash |
 | [get_block_by_index](#Get-block-by-index) | Get block by index |
 | [get_block_last](#Get-last-block) | Get last block in the blockchain |
+| [get_last_block_index](#Get-last-block-index) | Get last block index |
 | [get_balance](#Get-balance) | Get current balance of an address |
 | [get_unspents](#Get-unspents) | Get unspent inputs of an address |
 | [get_statistic](#Get-statistic) | Get blockchain statisctic |
 
 ## Create address
 
-#### POST http://127.0.0.1:3001/address/create
+#### POST http://localhost/address/create
 
 #### About
 
@@ -43,7 +46,7 @@ Generate new key pair
 #### Input
 
 ```
-curl -s -u user:pass -X POST http://127.0.0.1:3001/address/create -H 'Content-Type: application/json' -d '{ }'
+curl -s -X POST http://localhost/address/create -H 'Content-Type: application/json' -d '{ }'
 ```
 
 #### Output
@@ -55,79 +58,9 @@ curl -s -u user:pass -X POST http://127.0.0.1:3001/address/create -H 'Content-Ty
 }
 ````
 
-## Transaction Create
-
-#### POST http://127.0.0.1:3001/transaction/create
-
-#### About
-
-Generates new transaction using sent fields and adds it to the transaction pool.
-
-#### Input (params)
-
-| Filed | Type | Mandatory | Description |
-|-------|------|-----------|-------------|
-| from | string | Yes | Sender's address |
-| to | string | Yes | Recipient's address |
-| privateKey | string | Yes | Sender's private key |
-| amount | int | Yes | Amount of coins to send. Must be equal or greater than 1 |
-
-#### Output
-
-| Filed | Type | Description |
-|-------|------|-------------|
-| transaction | Transaction | Generated transaction object |
-
-#### Example
-
-Create transaction
-
-#### Input
-
-```
-curl -s -u user:pass -X POST http://127.0.0.1:3001/transaction/create -H 'Content-Type: application/json' -d '{
-   "from": "02bd3a78c2dddd22650c668e2e18bfbc1743b681f5722b34f012c9b7cd38d3bc9f",
-   "to": "034f3115e8f2aa97071951313ed582f64a06bd8bdb23b412507a1ab6c138500de9",
-   "privateKey": "601e2e4552bac2109237818808ec4696e2da95744b5badee75a3f54cb78a8900",
-   "amount": 1
- }'
-
-```
-
-#### Output
-
-```
-{
-  "transaction": {
-       "type": "regular",
-       "txIns": [
-           {
-               "txOutIndex": 1,
-               "txOutId": "db5d5e4d488a7a6c23a88a3bc64993197649a5248560f123d75f6271c8b6c30e",
-               "amount": 99576613,
-               "address": "02bd3a78c2dddd22650c668e2e18bfbc1743b681f5722b34f012c9b7cd38d3bc9f",
-               "signature": "d58a31cce3184a26511bfc92dbde6f884983bb851705fc0036eb80a277a8ee09434a08bd20333952e946ae2f1f3b77b056fabfe91af99ba94c70e4e1683ea13c"
-           }
-       ],
-       "txOuts": [
-           {
-               "address": "034f3115e8f2aa97071951313ed582f64a06bd8bdb23b412507a1ab6c138500de9",
-               "amount": 1
-           },
-           {
-               "address": "02bd3a78c2dddd22650c668e2e18bfbc1743b681f5722b34f012c9b7cd38d3bc9f",
-               "amount": 99576612
-           }
-       ],
-       "timestamp": 1554724349,
-       "id": "d0c147b68b2acaf6d7ddcf53825611c7b89a5960465a2db5a801e88e28d56c1a"
-   }
-}
-```
-
 ## Transaction Send
 
-#### POST http://127.0.0.1:3001/transaction/send
+#### POST http://localhost/transaction/send
 
 #### About
 
@@ -152,7 +85,7 @@ Add generated transactin to transactions pool
 #### Input
 
 ```
-curl -s -u user:pass -X POST http://127.0.0.1:3001/transaction/send -H 'Content-Type: application/json' -d '{
+curl -s -X POST http://localhost/transaction/send -H 'Content-Type: application/json' -d '{
    "txHex": "7b2274797065223a22726567756c6172222c227478496e73223a5b5d2c2274784f757473223a5b7b2261646472657373223a2230343831363730666333346432663261303630333336326536646335663430666337393761363230396562326264343337306364626335663031343137663363626535633665306536396464356461373534343330643633643163316330343162396536323464373938383939636563626364626232656634343861613462633939222c22616d6f756e74223a357d2c7b2261646472657373223a2230343861623033336561303164333436633736353630366464643464366166666133303162646462326233323333323162653531383533323736613031383365336333616339393065656136656533653036666663383762393565623436666638623935333034626635613138393037373034643535393730623564346635353830222c22616d6f756e74223a31307d5d2c2274696d657374616d70223a313535343732353637322c226964223a2237353264666230353336373536626264646461373231663036363334613062313739333632356232333834366638646363646536396565363535313331383964227d"
  }'
 
@@ -190,9 +123,73 @@ curl -s -u user:pass -X POST http://127.0.0.1:3001/transaction/send -H 'Content-
 }
 ```
 
+## Get transaction list
+
+#### GET http://localhost/tx/list
+
+#### About
+
+Get transaction list
+
+#### Input (search params)
+
+| Filed | Type | Mandatory | Description |
+|-------|------|-----------|-------------|
+| senderAddress | String | No | Sender address |
+| recipientAddress | String | No | Recipient address |
+| minAmount | Number | No | Min transaction amount |
+| maxAmount | Number | No | Max transaction amount |
+| minTimestamp | Number | No | Lower transaction creation time limitation |
+| maxTimestamp | Number | No | Upper transaction creation time limitation |
+
+#### Output
+
+| Filed | Type | Description |
+|-------|------|-------------|
+| txList | Array | Transaction array |
+| lastBlockIndex | Number | Last scanned block |
+| lastTxIndex | Number | Last scanned transaction of block #lastBlockIndex |
+
+#### Example
+
+Get transaction list
+
+#### Input
+
+```
+curl -s -X GET http://localhost/tx/list?senderAddress=0253bef002ac9ed66cc32ce464945b9ff849689bbbabff514e6e5bbf040ba59677&recipientAddress=02d0e5855150b64eef857a570d472cea0dd7ab2db01578649d0db1deb6f698f05b&minAmount=100&maxAmount=10000&minTimestamp=1485743120&maxTimestamp=1685743120 -H 'Content-Type: application/json'
+```
+
+#### Output
+
+```
+"txList": [
+    {
+        "type": "regular",
+        "txIns": [
+            {
+                "txOutIndex": 7024,
+                ...
+            }
+        ],
+        "txOuts": [
+            {
+                "amount": 0,
+                "address": "02d0e5855150b64eef857a570d472cea0dd7ab2db01578649d0db1deb6f698f05b"
+                ...
+            }
+        ],
+        "timestamp": 1530941569,
+        "id": "8c5db06e8ea6090a4b8c4c053b667d5d5897b72b44cb515c7ccb359fc33d0a38"
+    }
+],
+"lastBlockIndex": 1000,
+"lastTxIndex": 1
+```
+
 ## Get transaction
 
-#### GET http://127.0.0.1:3001/transaction/:id
+#### GET http://localhost/transaction/:id
 
 #### About
 
@@ -217,7 +214,7 @@ Find transaction
 #### Input
 
 ```
-curl -s -X GET http://127.0.0.1:3001/transaction/93f3e2f32f009c8a535d85e4e4e2e063b02ae7d94a2aa30eac8e7574aca5be76 -H 'Content-Type: application/json'
+curl -s -X GET http://localhost/transaction/93f3e2f32f009c8a535d85e4e4e2e063b02ae7d94a2aa30eac8e7574aca5be76 -H 'Content-Type: application/json'
 ```
 
 #### Output
@@ -249,9 +246,137 @@ curl -s -X GET http://127.0.0.1:3001/transaction/93f3e2f32f009c8a535d85e4e4e2e06
 }
 ```
 
+## Get blocks
+
+#### GET http://localhost/blocks
+
+#### About
+
+Get last 10 blocks
+
+#### Input (params)
+
+Empty
+
+#### Output
+
+| Filed | Type | Description |
+|-------|------|-------------|
+| blocks | Array | Block array |
+| pages | Number | Block pages |
+
+#### Example
+
+Get last 10 blocks
+
+#### Input:
+
+```
+curl -s -X GET http://localhost/blocks -H 'Content-Type: application/json'
+```
+
+#### Output:
+
+```
+blocks: [
+    {
+        "index": 2,
+        "previousHash": "e95d2bf9976df2f5b40675bedc1c3077a058f6edd3e1631efcec7650de53b551",
+        "data": [
+            {
+                "type": "coinbase",
+                "txIns": [
+                    {
+                        "txOutIndex": 2
+                    }
+                ],
+                "txOuts": [
+                    {
+                        "address": "",
+                        "amount": 0
+                    }
+                ],
+                "timestamp": 1553787151,
+                "id": "d02aa933e10c49849a251c7250d1b66ac058bf2ec5f9969621b07537f754aae3"
+            }
+      ],
+        "beaconIndex": 305426,
+        "beaconValue": "D9680BB9A47FB25E28801E7CB826B2D2ECCB1A627097D35AB9168809E514B6B2CAC0CA6F3C2B834086963FDF6C42FF62576B9C0A34F01903F0334C905AD6C98D",
+        "timestamp": 1553787151,
+        "hash": "4a02fa6c7f243af4bd07de58c2f80b91437ea07f9ac90b03c68f24e9ba93025a"
+    }
+],
+pages: 100
+```
+
+## Get blocks with offset
+
+#### GET http://localhost/blocks/:page
+
+#### About
+
+Get 10 blocks with offset
+
+#### Input (params)
+
+| Filed | Type | Mandatory | Description |
+|-------|------|-----------|-------------|
+| page | Number | Yes | Blocks page |
+
+#### Output
+
+| Filed | Type | Description |
+|-------|------|-------------|
+| blocks | Array | Block array |
+| pages | Number | Block pages |
+
+#### Example
+
+Get 10 blocks with offset
+
+#### Input:
+
+```
+curl -s -X GET http://localhost/blocks/1 -H 'Content-Type: application/json'
+```
+
+#### Output:
+
+```
+blocks: [
+    {
+        "index": 2,
+        "previousHash": "e95d2bf9976df2f5b40675bedc1c3077a058f6edd3e1631efcec7650de53b551",
+        "data": [
+            {
+                "type": "coinbase",
+                "txIns": [
+                    {
+                        "txOutIndex": 2
+                    }
+                ],
+                "txOuts": [
+                    {
+                        "address": "",
+                        "amount": 0
+                    }
+                ],
+                "timestamp": 1553787151,
+                "id": "d02aa933e10c49849a251c7250d1b66ac058bf2ec5f9969621b07537f754aae3"
+            }
+      ],
+        "beaconIndex": 305426,
+        "beaconValue": "D9680BB9A47FB25E28801E7CB826B2D2ECCB1A627097D35AB9168809E514B6B2CAC0CA6F3C2B834086963FDF6C42FF62576B9C0A34F01903F0334C905AD6C98D",
+        "timestamp": 1553787151,
+        "hash": "4a02fa6c7f243af4bd07de58c2f80b91437ea07f9ac90b03c68f24e9ba93025a"
+    }
+],
+pages: 100
+```
+
 ## Get block by hash
 
-#### GET http://127.0.0.1:3001/block/:hash
+#### GET http://localhost/block/:hash
 
 #### About
 
@@ -276,7 +401,7 @@ Find block by hash
 #### Input:
 
 ```
-curl -s -X GET http://127.0.0.1:3001/block/4a02fa6c7f243af4bd07de58c2f80b91437ea07f9ac90b03c68f24e9ba93025a -H 'Content-Type: application/json'
+curl -s -X GET http://localhost/block/4a02fa6c7f243af4bd07de58c2f80b91437ea07f9ac90b03c68f24e9ba93025a -H 'Content-Type: application/json'
 ```
 
 #### Output:
@@ -312,7 +437,7 @@ curl -s -X GET http://127.0.0.1:3001/block/4a02fa6c7f243af4bd07de58c2f80b91437ea
 
 ## Get block by index
 
-#### GET http://127.0.0.1:3001/block/:index
+#### GET http://localhost/block/:index
 
 #### About
 
@@ -337,7 +462,7 @@ Find block by index
 #### Input:
 
 ```
-curl -s -X GET http://127.0.0.1:3001/block/2 -H 'Content-Type: application/json'
+curl -s -X GET http://localhost/block/2 -H 'Content-Type: application/json'
 ```
 
 #### Output:
@@ -373,7 +498,7 @@ curl -s -X GET http://127.0.0.1:3001/block/2 -H 'Content-Type: application/json'
 
 ## Get last block
 
-#### GET http://127.0.0.1/address/:address/balance
+#### GET http://localhost/block/last
 
 #### About
 
@@ -396,7 +521,7 @@ Get last block
 #### Input:
 
 ```
-curl -s -X GET http://127.0.0.1:3001/block/last -H 'Content-Type: application/json'
+curl -s -X GET http://localhost/block/last -H 'Content-Type: application/json'
 ```
 
 #### Output:
@@ -430,9 +555,41 @@ curl -s -X GET http://127.0.0.1:3001/block/last -H 'Content-Type: application/js
 }
 ```
 
+## Get last block index
+
+#### GET http://localhost/block/last/index
+
+#### About
+
+Get last block index
+
+#### Input (params)
+
+Empty
+
+#### Output
+
+| Filed | Type | Description |
+|-------|------|-------------|
+| index | Int | Last block index |
+
+#### Input:
+
+```
+curl -s -X GET http://localhost/block/last/index -H 'Content-Type: application/json'
+```
+
+#### Output:
+
+```
+{
+    "index": 1557249
+}
+```
+
 ## Get balance
 
-#### GET http://127.0.0.1:3001/address/:address/balance
+#### GET http://localhost/address/:address/balance
 
 #### About
 
@@ -457,7 +614,7 @@ Get balance of requested address
 #### Input:
 
 ```
-curl -s -X GET http://127.0.0.1:3001/address/0231272fba0fb2a54be85ff7b45hy7712d32134338dbbb10e4e3b9272c2a678238/balance -H 'Content-Type: application/json'
+curl -s -X GET http://localhost/address/0231272fba0fb2a54be85ff7b45hy7712d32134338dbbb10e4e3b9272c2a678238/balance -H 'Content-Type: application/json'
 ```
 
 #### Output:
@@ -470,7 +627,7 @@ curl -s -X GET http://127.0.0.1:3001/address/0231272fba0fb2a54be85ff7b45hy7712d3
 
 ## Get unspents
 
-#### GET http://127.0.0.1:3001/address/:address/unspent
+#### GET http://localhost/address/:address/unspent
 
 #### About
 
@@ -495,7 +652,7 @@ Get unspent txOuts of requested address
 #### Input:
 
 ```
-curl -s -X GET http://127.0.0.1:3001/address/0231272fba0fb2a54be85ff7b45hy7712d32134338dbbb10e4e3b9272c2a678238/unspent -H 'Content-Type: application/json'
+curl -s -X GET http://localhost/address/0231272fba0fb2a54be85ff7b45hy7712d32134338dbbb10e4e3b9272c2a678238/unspent -H 'Content-Type: application/json'
 ```
 
 #### Output:
@@ -515,7 +672,7 @@ curl -s -X GET http://127.0.0.1:3001/address/0231272fba0fb2a54be85ff7b45hy7712d3
 
 ## Get statistic
 
-#### GET http://127.0.0.1:3001/statistic
+#### GET http://localhost/statistic
 
 #### About
 
@@ -540,7 +697,7 @@ Get statistic
 #### Input:
 
 ```
-curl -s -X GET http://127.0.0.1:3001/statistic -H 'Content-Type: application/json'
+curl -s -X GET http://localhost/statistic -H 'Content-Type: application/json'
 ```
 
 #### Output:
